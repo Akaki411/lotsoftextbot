@@ -4,7 +4,7 @@
   "description": "THIS IS BOT",
   "main": "../LotsOfTextBot/index.js",
   "scripts": {
-    "dev": "nodemon ../LotsOfTextBot/index.js"
+    "start": "node main.js"
   },
   "keywords": [],
   "author": "",
