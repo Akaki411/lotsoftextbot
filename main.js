@@ -4,7 +4,7 @@ const samples = require('./samples')
 const commands = require('./commands')
 
 const vk = new VK({
-    token: 'vk1.a.SDVRMZ1umMTZeOtp-n6o6YBUlI62Tf_93FaM-XAlYNC4Ae7qYwoMCDq-hBIlb5krLCdCfTCOpzhrrCY_uFQ4-Fr3KwM3gZ_-fbWiGC5Rzy8GziwTG4KyhEFTiHazg0_s5hED8OAcIx2E583Hnto87jJjeKcX4lUh0kFy5hfL7MydZS3NZqqUMYMStIgHcIRT'
+    token: 'vk1.a.wqWYRjcbdM89tzQxSsVDfxlCegPuxs9Mopl8L0YfnXPPL_pn1z_RCP6fsAjFVkRQEBaiAeJSd_J_crGiFqIbsmqPvjShkRH-Fn8Jtj4RB_ZxSultie8odtWdN3MCJkkMolXy3XC4zHC7plUM84KmChZb1XxIUfLHA65mwCML3ndFn79RQTJPMba8QxPGqAvr'
 })
 
 const telebot = new TelegramBot("5418980257:AAEP1sufU6noGIQQYsa2eNMj7AxvKmO88_s")
@@ -147,7 +147,7 @@ function SendTelegramPost(context)
                 {
                     text = `Репост из группы "${result[0].name}" \n\n${repostText}`
                 }
-                telebot.sendPhoto(-1001502013557, photoURL, {caption: text })
+                telebot.sendPhoto(-1001725789637, photoURL, {caption: text })
             }
             else
             {
@@ -159,18 +159,18 @@ function SendTelegramPost(context)
                 {
                     text = `Репост из группы "${result[0].name}" \n\n${repostText}`
                 }
-                telebot.sendMessage(-1001502013557, text)
+                telebot.sendMessage(-1001725789637, text)
             }
         })
         return
     }
     if (photoURL)
     {
-        telebot.sendPhoto(-1001502013557, photoURL, {caption: text + "\n" + linkURL })
+        telebot.sendPhoto(-1001725789637, photoURL, {caption: text + "\n" + linkURL })
     }
     else
     {
-        telebot.sendMessage(-1001502013557, text + "\n" + linkURL)
+        telebot.sendMessage(-1001725789637, text + "\n" + linkURL)
     }
 }
 
