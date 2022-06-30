@@ -17,13 +17,13 @@ class Commands
 {
     constructor()
     {
-        this.connection = mysql.createConnection({
+        this.connection = mysql.createPool({
+            connectionLimit : 1000,
             host     : 'remotemysql.com',
             user     : 'yBIH070R9q',
             password : 'xoH84rz3p1',
             database : 'yBIH070R9q'
         })
-        this.connection.connect()
         this.connection.query('SHOW TABLES LIKE \'vk_users\';', (error, result) => {
             if (result.length === 0) {
                 this.connection.query('CREATE TABLE vk_users(ID INT NOT NULL UNIQUE, new BOOL NOT NULL, drafts BOOL NOT NULL, templates BOOL NOT NULL, updates BOOL NOT NULL, off_topic BOOL NOT NULL, opinions BOOL NOT NULL, republications BOOL NOT NULL, stuff BOOL NOT NULL);', (err) => {
