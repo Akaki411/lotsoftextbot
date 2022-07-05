@@ -151,49 +151,49 @@ class Commands
     UnsubscribeToNew(context)
     {
         this.connection.query(`UPDATE vk_users SET new = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о новых работах. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о новых работах. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToDrafts(context)
     {
         this.connection.query(`UPDATE vk_users SET drafts = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о черновиках. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о черновиках. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToTemplates(context)
     {
         this.connection.query(`UPDATE vk_users SET templates = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о шаблонах. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о шаблонах. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToUpdates(context)
     {
         this.connection.query(`UPDATE vk_users SET updates = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений об обновлениях. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений об обновлениях. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToOffTops(context)
     {
         this.connection.query(`UPDATE vk_users SET off_topic = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений об оффтопах. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений об оффтопах. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToOpinions(context)
     {
         this.connection.query(`UPDATE vk_users SET opinions = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о постах с мнением автора.. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о постах с мнением автора.. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToRepublications(context)
     {
         this.connection.query(`UPDATE vk_users SET republications = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о переизданиях. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о переизданиях. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     UnsubscribeToStuff(context)
     {
         this.connection.query(`UPDATE vk_users SET stuff = false WHERE ID = ${context.peerId};`)
-        context.send(`Вы отписались от получения уведомлений о технических и неформатных постах. \n\n ${samples.subscribe_text_responses[RandomID(samples.subscribe_text_responses.length)]}`)
+        context.send(`Вы отписались от получения уведомлений о технических и неформатных постах. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
     SendRandomResponse(context)
