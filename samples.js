@@ -84,11 +84,6 @@ const notification_text_stuff = [
     "Товарищ, вам письмо!"
 ]
 
-const admins = [
-    565472458,
-    512920091
-]
-
 module.exports = {
     welcome_text,
     unknown_text_responses,
@@ -101,6 +96,5 @@ module.exports = {
     notification_text_off_topic,
     notification_text_opinions,
     notification_text_republications,
-    notification_text_stuff,
-    admins
+    notification_text_stuff
 }
