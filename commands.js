@@ -445,6 +445,7 @@ class Commands
                 try
                 {
                     await Users.create({id: command})
+                    context.send(`${command} добавлен в базу данных`)
                 }
                 catch (e)
                 {
@@ -466,6 +467,7 @@ class Commands
                         republications: true,
                         stuff: true})
                     await user.save()
+                    context.send(`${command} теперь подписан на все`)
                 }
                 catch (e)
                 {
@@ -487,6 +489,7 @@ class Commands
                         republications: false,
                         stuff: false})
                     await user.save()
+                    context.send(`${command} теперь от всего отписан`)
                 }
                 catch (e)
                 {
