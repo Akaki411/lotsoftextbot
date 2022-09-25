@@ -356,6 +356,9 @@ class Commands
                            * sql + <query> - SQL запрос к базе данных
                            * level + <ID> - возвращает информацию о подписках пользователя
                            * addadmin + <ID> - Добавляет администратора по id
+                           * adduser + <ID> - Добавить id пользователя в базу данных
+                           * subuser + <ID> - Подписать пользователя по id на все
+                           * unsubuser + <ID> - Отписать пользователя по id от всего
             `)
         }
         else if (context.text === "Количество подписчиков")
@@ -437,7 +440,7 @@ class Commands
                     context.send(e.message)
                 }
             }
-            else if (prefix === "addsub")
+            else if (prefix === "adduser")
             {
                 try
                 {
