@@ -342,7 +342,7 @@ class Commands
     GetPorfirevichText(context)
     {
         let command = context.text.substr(context.text.indexOf(" ") + 1)
-        axios.post("https://pelevin.gpt.dobro.ai/generate/", {prompt: command, length: 100}).then((result) => context.send(command + result.data.replies[0])).catch((err) => context.send("Я не хочу с тобой говорить, я обиделся!"))
+        axios.post("https://pelevin.gpt.dobro.ai/generate/", {prompt: command, length: 100}).then((result) => context.send(command + result.data.replies[0])).catch(() => context.send("Я не хочу с тобой говорить, я обиделся!"))
     }
 
     async CommandHandler(context, vk, sequelize, callback)
@@ -431,6 +431,59 @@ class Commands
                             Переиздания: ${user.dataValues.republications ? "да" : "нет"}
                             Прочее: ${user.dataValues.stuff ? "да" : "нет"}
                             `)}).catch(() => context.send("Не верный формат ID"))
+                }
+                catch (e)
+                {
+                    context.send(e.message)
+                }
+            }
+            else if (prefix === "addsub")
+            {
+                try
+                {
+                    await Users.create({id: command})
+                }
+                catch (e)
+                {
+                    context.send(e.message)
+                }
+            }
+            else if (prefix === "subuser")
+            {
+                try
+                {
+                    let user = await Users.findOne({where: {id: command}})
+                    await user.update({
+                        new: true,
+                        drafts: true,
+                        templates: true,
+                        updates: true,
+                        off_topic: true,
+                        opinions: true,
+                        republications: true,
+                        stuff: true})
+                    await user.save()
+                }
+                catch (e)
+                {
+                    context.send(e.message)
+                }
+            }
+            else if (prefix === "unsubuser")
+            {
+                try
+                {
+                    let user = await Users.findOne({where: {id: command}})
+                    await user.update({
+                        new: false,
+                        drafts: false,
+                        templates: false,
+                        updates: false,
+                        off_topic: false,
+                        opinions: false,
+                        republications: false,
+                        stuff: false})
+                    await user.save()
                 }
                 catch (e)
                 {
