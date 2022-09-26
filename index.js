@@ -61,44 +61,56 @@ vk.updates.on('wall_post', (context) => {
     {
         commands.SendNotificationAboutStuff(vk, context)
     }
-    DestructPost(context)
+    console.log(context)
 })
 
 vk.updates.on('message_new', (context) => {
-    let isAdmin = false
-    admins.forEach(admin => {
-        if (admin.dataValues.id === context.peerId)
+    try
+    {
+        let isAdmin = false
+        admins.forEach(admin => {
+            if (admin.dataValues.id === context.peerId)
+            {
+                isAdmin = true
+            }
+        })
+        if(isAdmin && context.attachments[0])
         {
-            isAdmin = true
+            DestructPost({wall: context.attachments[0]})
+            return
         }
-    })
 
-    if (context.text === "Начать") commands.Start(context, isAdmin)
-    else if (context.text === "Назад") commands.Back(context, isAdmin)
-    else if (context.text === "Подписаться") commands.Subscribe(context)
-    else if (context.text === "Отписаться") commands.Unsubscribe(context)
-    else if (context.text === "Админка" && isAdmin) commands.GetAdminPanel(context)
-    else if (context.text === "Подписаться на все оповещения") commands.SubscribeToAll(context)
-    else if (context.text === "Новое") commands.SubscribeToNew(context)
-    else if (context.text === "Черновики") commands.SubscribeToDrafts(context)
-    else if (context.text === "Шаблоны") commands.SubscribeToTemplates(context)
-    else if (context.text === "Обновления") commands.SubscribeToUpdates(context)
-    else if (context.text === "Оффтопы") commands.SubscribeToOffTops(context)
-    else if (context.text === "Мнения") commands.SubscribeToOpinions(context)
-    else if (context.text === "Переиздания") commands.SubscribeToRepublications(context)
-    else if (context.text === "Прочее") commands.SubscribeToStuff(context)
-    else if (context.text === "Отписаться от всех оповещений") commands.UnsubscribeToAll(context)
-    else if (context.text === "От нового") commands.UnsubscribeToNew(context)
-    else if (context.text === "От черновиков") commands.UnsubscribeToDrafts(context)
-    else if (context.text === "От шаблонов") commands.UnsubscribeToTemplates(context)
-    else if (context.text === "От обновлений") commands.UnsubscribeToUpdates(context)
-    else if (context.text === "От оффтопов") commands.UnsubscribeToOffTops(context)
-    else if (context.text === "От мнений") commands.UnsubscribeToOpinions(context)
-    else if (context.text === "От переизданий") commands.UnsubscribeToRepublications(context)
-    else if (context.text === "От прочего") commands.UnsubscribeToStuff(context)
-    else if (context.text.includes("Апострофыч") || context.text.includes("апострофыч") || context.text.includes("Апострофич") || context.text.includes("апострофич")) commands.GetPorfirevichText(context)
-    else if (isAdmin) commands.CommandHandler(context, vk, sequelize, UpdateAdmins)
-    else commands.SendRandomResponse(context)
+        if (context.text === "Начать") commands.Start(context, isAdmin)
+        else if (context.text === "Назад") commands.Back(context, isAdmin)
+        else if (context.text === "Подписаться") commands.Subscribe(context)
+        else if (context.text === "Отписаться") commands.Unsubscribe(context)
+        else if (context.text === "Админка" && isAdmin) commands.GetAdminPanel(context)
+        else if (context.text === "Подписаться на все оповещения") commands.SubscribeToAll(context)
+        else if (context.text === "Новое") commands.SubscribeToNew(context)
+        else if (context.text === "Черновики") commands.SubscribeToDrafts(context)
+        else if (context.text === "Шаблоны") commands.SubscribeToTemplates(context)
+        else if (context.text === "Обновления") commands.SubscribeToUpdates(context)
+        else if (context.text === "Оффтопы") commands.SubscribeToOffTops(context)
+        else if (context.text === "Мнения") commands.SubscribeToOpinions(context)
+        else if (context.text === "Переиздания") commands.SubscribeToRepublications(context)
+        else if (context.text === "Прочее") commands.SubscribeToStuff(context)
+        else if (context.text === "Отписаться от всех оповещений") commands.UnsubscribeToAll(context)
+        else if (context.text === "От нового") commands.UnsubscribeToNew(context)
+        else if (context.text === "От черновиков") commands.UnsubscribeToDrafts(context)
+        else if (context.text === "От шаблонов") commands.UnsubscribeToTemplates(context)
+        else if (context.text === "От обновлений") commands.UnsubscribeToUpdates(context)
+        else if (context.text === "От оффтопов") commands.UnsubscribeToOffTops(context)
+        else if (context.text === "От мнений") commands.UnsubscribeToOpinions(context)
+        else if (context.text === "От переизданий") commands.UnsubscribeToRepublications(context)
+        else if (context.text === "От прочего") commands.UnsubscribeToStuff(context)
+        else if (context.text.includes("Апострофыч") || context.text.includes("апострофыч") || context.text.includes("Апострофич") || context.text.includes("апострофич")) commands.GetPorfirevichText(context)
+        else if (isAdmin) commands.CommandHandler(context, vk, sequelize, UpdateAdmins)
+        else commands.SendRandomResponse(context)
+    }
+    catch (e)
+    {
+        commands.SendRandomResponse(context)
+    }
 })
 
 async function UpdateAdmins()
