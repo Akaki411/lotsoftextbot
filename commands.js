@@ -230,11 +230,6 @@ class Commands
         context.send(`Вы отписались от получения уведомлений о технических и неформатных постах. \n\n ${samples.unsubscribe_text_responses[RandomID(samples.unsubscribe_text_responses.length)]}`)
     }
 
-    SendRandomResponse(context)
-    {
-        context.send(samples.unknown_text_responses[RandomID(samples.unknown_text_responses.length)])
-    }
-
     async SendNotificationAboutNew(context, post)
     {
         let users = await Users.findAll({where: {new: true}})

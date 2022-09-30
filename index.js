@@ -105,7 +105,6 @@ vk.updates.on('message_new', (context) => {
         else if (context.text === "От прочего") commands.UnsubscribeToStuff(context)
         else if (context.text.includes("Апострофыч") || context.text.includes("апострофыч") || context.text.includes("Апострофич") || context.text.includes("апострофич")) commands.GetPorfirevichText(context)
         else if (isAdmin) commands.CommandHandler(context, vk, sequelize, UpdateAdmins)
-        else commands.SendRandomResponse(context)
     }
     catch (e)
     {
