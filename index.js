@@ -76,7 +76,15 @@ vk.updates.on('message_new', (context) => {
         })
         if(isAdmin && context.attachments[0])
         {
-            DestructPost({wall: context.attachments[0]})
+            try
+            {
+                DestructPost({wall: context.attachments[0]})
+                context.send("Пост опубликован")
+            }
+            catch (e)
+            {
+                context.send(`Что-то пошло не так: ${e.message}`)
+            }
             return
         }
 
@@ -108,7 +116,7 @@ vk.updates.on('message_new', (context) => {
     }
     catch (e)
     {
-        commands.SendRandomResponse(context)
+        console.log(e.message)
     }
 })
 
