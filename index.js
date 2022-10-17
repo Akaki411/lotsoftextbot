@@ -61,7 +61,7 @@ vk.updates.on('wall_post', (context) => {
     {
         commands.SendNotificationAboutStuff(vk, context)
     }
-    console.log(context)
+    DestructPost(context)
 })
 
 vk.updates.on('message_new', (context) => {
