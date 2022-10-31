@@ -16,6 +16,19 @@ class TelegramSender
         return texts
     }
 
+    SeparateHeader(text)
+    {
+        while(text.includes("#"))
+        {
+            text = text.replace("#", "")
+        }
+        while(text.includes("_@worked_time"))
+        {
+            text = text.replace("_@worked_time", "")
+        }
+        return text
+    }
+
     async SendMessage(text)
     {
         return new Promise(resolve => {

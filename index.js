@@ -1,6 +1,7 @@
 const {VK} = require('vk-io')
+const express = require('express')
+const app = express()
 const TelegramBot = require('node-telegram-bot-api')
-const samples = require('./samples')
 const commands = require('./commands')
 const sequelize = require('./database')
 const {Admins} = require('./models')
@@ -27,7 +28,8 @@ async function StartDB()
 }
 StartDB()
 
-vk.updates.on('wall_post', (context) => {
+function SendNotification(context, type)
+{
     let content = context.wall.text
     if (content.includes("#Новое_@worked_time") || content.includes("#новое_@worked_time"))
     {
@@ -53,7 +55,7 @@ vk.updates.on('wall_post', (context) => {
     {
         commands.SendNotificationAboutOpinion(vk, context)
     }
-    else if (content.includes("#Переиздание_@worked_time") || content.includes("#переиздание_@worked_time"))
+    else if (content.includes("#Дно_Двойное_@worked_time") || content.includes("#дно_двойное_@worked_time"))
     {
         commands.SendNotificationAboutRepublication(vk, context)
     }
@@ -61,8 +63,10 @@ vk.updates.on('wall_post', (context) => {
     {
         commands.SendNotificationAboutStuff(vk, context)
     }
-    DestructPost(context)
-})
+    if(type === "Post") DestructPost(context)
+}
+
+vk.updates.on('wall_post', context => SendNotification(context, "Post"))
 
 vk.updates.on('message_new', (context) => {
     try
@@ -74,7 +78,13 @@ vk.updates.on('message_new', (context) => {
                 isAdmin = true
             }
         })
-        if(isAdmin && context.attachments[0])
+        if(isAdmin && context.attachments[0] && (context.text === "Репост" || context.text === "репост"))
+        {
+            SendNotification({wall: context.attachments[0]}, context.text)
+            context.send("Информация о посте доставлена")
+            return
+        }
+        else if(isAdmin && context.attachments[0] && !context.text)
         {
             try
             {
@@ -85,6 +95,11 @@ vk.updates.on('message_new', (context) => {
             {
                 context.send(`Что-то пошло не так: ${e.message}`)
             }
+            return
+        }
+        else if(isAdmin && context.attachments[0])
+        {
+            context.send("Я не понял, что мне с ним сделать?")
             return
         }
 
@@ -130,13 +145,6 @@ async function GetGroupName(id)
     return vk.api.groups.getById({group_id: id * -1})
 }
 
-async function GetVideo(id)
-{
-    return await vk.api.video.get({
-        videos: id
-    })
-}
-
 async function DestructPost(context)
 {
     let repost = context.wall.copyHistory[0]
@@ -177,6 +185,7 @@ async function DestructPost(context)
 
     texts = telesender.DestructText(text, 4000)
     texts.concat(linkURL)
+    texts[0] = telesender.SeparateHeader(texts[0])
 
     if (photoURL.length > 0)
     {
@@ -195,5 +204,8 @@ async function DestructPost(context)
         await telesender.SendMessage(texts[i])
     }
 }
-
+app.get('/', (req, res) => {
+    res.send('Бот работает')
+})
+app.listen(3000)
 vk.updates.start().then(() => console.log("Бот запущен"))
