@@ -49,19 +49,9 @@ class TelegramSender
         })
     }
 
-    async SendCloseMessage(text)
+    async SendPool(context)
     {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                this.telebot.sendMessage(process.env.telegram_chat_id, text, {
-                    reply_markup: JSON.stringify({
-                        inline_keyboard: [
-                            [{ text: 'Читать больше в группе', url: 'https://vk.com/worked_time'}]
-                        ]})
-                })
-                resolve()
-            }, 3000)
-        })
+
     }
 }
 
